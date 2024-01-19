@@ -1,0 +1,27 @@
+1.api for registering a new user
+   
+    url:http://127.0.0.1:8000/api/register/
+    method:post
+    data:{username,email,password}
+    authorization:nill
+
+2.api for fetching token
+
+    url:http://127.0.0.1:8000/api/token/
+    method:post
+    data:{username,password}
+    authorization:nill
+
+3.api for fetching all products
+
+    url:http://127.0.0.1:8000/api/products/
+    method:get
+    data:nill
+    authorization:Token
+
+4.api for fetching specific product detail
+
+    url:http://127.0.0.1:8000/api/products/{id}/
+    method:get
+    data:nill
+    authorization:Token
