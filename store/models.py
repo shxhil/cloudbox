@@ -31,6 +31,28 @@ class Basket(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
     is_active=models.BooleanField(default=True)
+
+
+#baket nta akath items illa so we need to add Basketitms in it athin ahn ee methord kundvarne 
+    @property #basket item thila object aayt serializer il kittan vendeet ahn @pro..
+    def cart_items(self):
+        #BasketItem.objects.filter(basket=self)  >> if there is no related name cartitem
+        return self.cartitem.all() #here self means model basket
+        
+    
+    
+    @property
+    def cart_item_quantity(self):
+        qs=self.cart_items #cart nta akath ulla sanagal idkkan
+        return qs.count()
+    
+    @property
+    def sub_total(self):
+        basket_items=self.cart_items
+        total=0
+        if basket_items:
+            total_sum=sum([p.total for p in basket_items])
+        return total_sum
     
 class BasketItem(models.Model): #cart l more than one element add akaan ahn basket 2 nnam 
     basket=models.ForeignKey(Basket,on_delete=models.CASCADE,related_name="cartitem")
@@ -39,6 +61,10 @@ class BasketItem(models.Model): #cart l more than one element add akaan ahn bask
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
     is_active=models.BooleanField(default=True)
+
+    @property
+    def total(self):    #total price
+        return self.quantity*self.product.price
 
 
 
